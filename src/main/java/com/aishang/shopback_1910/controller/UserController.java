@@ -21,6 +21,7 @@ public class UserController {
     public List<User> demo(){
         System.out.println("第一次更新代码");
         System.out.println("develop分支第一次上传");
+        System.out.println("合并分支");
         List<User> users = userService.getAll();
         return users;
     }
