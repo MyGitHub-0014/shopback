@@ -20,6 +20,7 @@ public class UserController {
     @RequestMapping("/demo")
     public List<User> demo(){
         System.out.println("第一次更新代码");
+        System.out.println("develop分支第一次上传");
         List<User> users = userService.getAll();
         return users;
     }
