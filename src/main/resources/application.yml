@@ -20,3 +20,11 @@ mybatis:
   # spring boot集成mybatis的方式打印sql
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#端口
+server:
+  port: 8081
+
+file:
+  staticAccessPath: /upload/**
+  uploadFolder: F:/upload/

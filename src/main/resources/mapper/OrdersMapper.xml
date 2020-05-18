@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aishang.shopback_1910.dao.OrdersMapper">
-  <resultMap id="BaseResultMap" type="com.aishang.shopback_1910.po.Orders">
+
+  <!--查询订单-->
+  <select id="selectOrders" parameterType="Integer" resultMap="BaseResultMap">
+        select * from (select * from orders where state=#{state} order by ordertime desc) orders
+        inner join orderitem
+        on orders.oid = orderitem.oid
+        inner join product
+        on orderitem.pid = product.pid
+  </select>
+
+  <resultMap id="BaseResultMap" type="OrdersExt">
     <!--
       WARNING - @mbg.generated
     -->
@@ -13,5 +23,24 @@
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="addr" jdbcType="VARCHAR" property="addr" />
     <result column="uid" jdbcType="INTEGER" property="uid" />
+      <collection property="orderItemExts" ofType="OrderItemExt">
+        <id property="itemid" column="itemid"></id>
+        <result property="count" column="count"></result>
+        <result property="subtotal" column="subtotal"></result>
+        <result property="pid" column="pid"></result>
+        <result property="oid" column="oid"></result>
+        <association property="product" javaType="Product">
+          <id column="pid" property="pid"></id>
+          <result column="pname" property="pname"></result>
+          <result column="market_price" property="marketPrice"></result>
+          <result column="shop_price" property="shopPrice"></result>
+          <result column="image" property="image"></result>
+          <result column="pdesc" property="pdesc"></result>
+          <result column="is_hot" property="isHot"></result>
+          <result column="pdate" property="pdate"></result>
+          <result column="csid" property="csid"></result>
+        </association>
+      </collection>
   </resultMap>
+
 </mapper>

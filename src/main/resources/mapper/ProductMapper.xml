@@ -15,4 +15,24 @@
     <result column="pdate" jdbcType="TIMESTAMP" property="pdate" />
     <result column="csid" jdbcType="INTEGER" property="csid" />
   </resultMap>
+
+  <select id="getAll" parameterType="ProductExt" resultMap="BaseResultMap">
+    select product.* from product
+    <if test="cid!=null">
+      inner join categorysecond
+      on product.csid=categorysecond.csid
+    </if>
+    <where>
+      <if test="csid!=null">
+        and product.csid=#{csid}
+      </if>
+      <if test="pname!=null">
+        and product.pname like "%"#{pname}"%"
+      </if>
+      <if test="pid!=null">
+        and categorysecond.cid=#{cid}
+      </if>
+    </where>
+    order by product.pdate desc
+  </select>
 </mapper>
